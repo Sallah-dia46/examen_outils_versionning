@@ -1,0 +1,60 @@
+name: Analyse de données
+
+on:
+  push:
+    branches:
+      - main  # Vous pouvez ajuster la branche selon vos besoins
+
+jobs:
+  data_analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v2
+
+    - name: Installation des dépendances Python
+      run: |
+        pip install pandas
+        pip install numpy 
+        pip install seaborn 
+        pip install matplotlib.pyplot
+        pip install scikit-learn  # Installez les bibliothèques nécessaires
+      shell: bash
+
+    - name: Récupérer les données
+      run: pudeur#46
+        data= pd.read_csv("file_path.csv")
+        # Ajoutez ici la commande pour récupérer vos données, par exemple git clone ou wget
+        # Assurez-vous que vos données sont accessibles dans le répertoire courant
+      shell: bash
+
+    - name: Nettoyage des données
+      run: |
+        # Ajoutez ici les commandes de nettoyage de données
+        for col in continuous_features:
+  data[col] = np.where(data[col] <data[col].quantile(0.10), data[col].quantile(0.10),data[col])
+  data[col] = np.where(data[col] >data[col].quantile(0.90), data[col].quantile(0.90),data[col])
+  print(data[col].skew())
+      shell: bash
+
+    - name: Réduction des données
+      run: |
+        # Ajoutez ici les commandes pour réduire les données, si nécessaire
+        from sklearn.preprocessing import StandardScaler
+mise_a_echelle = StandardScaler ()
+
+y = mise_a_echelle.fit_transform(t)
+print(data)
+      shell: bash
+
+    - name: Feature Engineering
+      run: |
+        # Ajoutez ici les commandes pour effectuer le feature engineering
+      shell: bash
+
+    - name: Afficher des statistiques sommaires
+      run: |
+        # Ajoutez ici les commandes pour afficher des statistiques sommaires sur les données
+        data.describe()
+      shell: bash
